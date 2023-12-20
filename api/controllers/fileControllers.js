@@ -1,5 +1,5 @@
 const fileServices = require('../services/fileServices');
-const formatFileData = require('../utils/formatter');
+const formatLines = require('../utils/formatter');
 const checkJson = require('../utils/checkJson');
 
 module.exports = {
@@ -11,19 +11,20 @@ module.exports = {
 
             if (files.length === 0) throw { msg: 'There has been an error fetchig the resource' };
 
-            let filesData = await Promise.all(files.map(async (file, i) => {
+            let formattedFiles = await Promise.all(files.map(async (file, i) => {
                 try {
                     const fileData = await fileServices.getFileData(file);
 
-                    const jsonValidity = checkJson(fileData)
+                    const jsonValidity = checkJson(fileData);
 
+                    // If the API responds with an error
                     if (jsonValidity.isValid && jsonValidity.json.status !== 200) return null;
 
-                    const formattedData = formatFileData(fileData);
+                    const formattedLines = formatLines(fileData);
 
                     const fullFileData = {
                         file,
-                        lines: formattedData
+                        lines: formattedLines
                     }
 
                     return fullFileData;
@@ -32,7 +33,8 @@ module.exports = {
                 }
             }));
 
-            const validFiles = filesData.filter((data) => (data !== null && data.lines.length !== 0));
+            // Filter files with errors or with no usable lines
+            const validFiles = formattedFiles.filter((data) => (data !== null && data.lines.length !== 0));
 
             res.status(200);
             return res.json(validFiles);

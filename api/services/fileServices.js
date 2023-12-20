@@ -13,15 +13,15 @@ module.exports = {
 
             return data.files;
         } catch (error) {
-            throw new Error(error);
+            console.error(error);;
         }
     },
 
     getFileData: async (fileName) => {
-        const baseURI = 'https://echo-serv.tbxnet.com/v1/secret/file/'
+        const endpoint = `https://echo-serv.tbxnet.com/v1/secret/file/${fileName}`
 
         try {
-            const response = await fetch(baseURI + fileName, {
+            const response = await fetch(endpoint, {
                 headers: {
                     'authorization': 'Bearer aSuperSecretKey'
                 }
@@ -31,7 +31,7 @@ module.exports = {
 
             return data;
         } catch (error) {
-            throw new Error(error);
+            console.error(error);;
         }
     },
 }
