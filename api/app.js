@@ -15,6 +15,6 @@ app.use((req, res) => {
   return res.json({msg: 'Error 404: not found'});
 })
 
-app.listen(3000, () => {
-  console.log('Servidor corriendo en puerto 3000 | http://localhost:3000');
+app.listen(3001, () => {
+  console.log('Servidor corriendo en puerto 3001 | http://localhost:3001');
 });

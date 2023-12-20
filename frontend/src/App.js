@@ -9,10 +9,13 @@ function App() {
   return (
     <>
       <h2 className="title">React Test App</h2>
-      <FileTable 
-        filesData={filesData}
-        isLoading={isLoading}
-      />
+      <div>
+        <FileTable
+          filesData={filesData}
+          isLoading={isLoading}
+          style={{width: "100vw"}}
+        />
+      </div>
     </>
   );
 }

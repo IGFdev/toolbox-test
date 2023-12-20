@@ -3,10 +3,10 @@ import Table from 'react-bootstrap/Table';
 import useFetch from '../hooks/useFetch';
 import TableRow from './TableRow';
 
-const FileTable = ({filesData, isLoading}) => {
+const FileTable = ({ filesData, isLoading }) => {
     return (
-        <Table striped bordered hover>
-            <thead>
+        <Table striped bordered hover responsive size="sm" style={{ width: "90%", marginLeft: "5%" }}>
+            <thead style={{borderBottom: "2px solid black"}}>
                 <tr>
                     <th>File Name</th>
                     <th>Text</th>
